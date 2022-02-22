@@ -1,4 +1,7 @@
+/* eslint-disable max-len */
 const Board = require("../models/board");
+const List = require("../models/list");
+const Card = require("../models/card");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 
@@ -27,5 +30,31 @@ const createBoard = (req, res, next) => {
   }
 };
 
+const getBoard = (req, res, next) => {
+  Board.findOne({ _id: req.params.id })
+    .populate({
+      path: "lists",
+      populate: { path: "cards" }
+    })
+    .then((board) => {
+      res.json(board);
+    });
+};
+
+const addList = (req, res, next) => {
+  console.log("boardId: ", req.body.boardId);
+  console.log("listId: ", req.list._id);
+  Board.updateOne({ _id: req.body.boardId }, { $push: { lists: req.list._id }})
+    .populate({
+      path: "lists",
+      populate: { path: "cards" }
+    })
+    .then(() => {
+      next();
+    });
+};
+
 exports.getBoards = getBoards;
 exports.createBoard = createBoard;
+exports.getBoard = getBoard;
+exports.addList = addList;

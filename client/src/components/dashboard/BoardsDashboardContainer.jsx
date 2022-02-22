@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React, { useReducer } from "react";
 import BoardsDashboard from "./BoardsDashboard";
 import Popover from "../shared/Popover";

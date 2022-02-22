@@ -32,7 +32,35 @@ const apiClient = {
       .then(unwrapData)
       .then(callback)
       .catch(logError);
+  },
+  getBoard: function(id, callback) {
+    return axios
+      .get(routes.FETCH_BOARD_URL + id)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
+  createList: function(list, callback) {
+    return axios
+      .post(routes.CREATE_LIST_URL, list)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
+  editList: function(id, list, callback) {
+    return axios
+      .put(routes.EDIT_LIST_URL + id, list)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
   }
+
+/*   {
+    "boardId": 1,
+    "list": {
+      "title": "My list"
+    }
+  } */
 };
 
 export default apiClient;

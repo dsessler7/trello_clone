@@ -1,3 +1,5 @@
+/* eslint-disable max-statements */
+/* eslint-disable max-lines-per-function */
 import React from "react";
 import $ from "jquery";
 import debounce from "debounce";

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import useInput from "../../hooks/useInput";

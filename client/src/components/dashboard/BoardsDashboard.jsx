@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React, { useEffect } from "react";
 import BoardTile from "./BoardTile";
 import { useSelector, useDispatch } from "react-redux";
