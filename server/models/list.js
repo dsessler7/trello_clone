@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-//import Card from 'card';
 
 const ListSchema = new Schema({
   title: {

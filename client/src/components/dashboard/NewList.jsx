@@ -7,22 +7,15 @@ const NewList = (props) => {
   const [ showButton, setShowButton ] = useState(true);
   const [ listTitle, setListTitle ] = useState('');
   const dispatch = useDispatch();
-  // const [ listSubmitted, setListSubmitted ] = useState(false);
 
-  // useEffect(() => {
-  //   dispatch(actions.createList(id));
-  // }, [listSubmitted]);
-
-  const handleSubmit = async () => {
-    // create object to be sent to API
+  const handleSubmit = () => {
     const listObj = {
       boardId: props.boardId,
       list: {
         title: listTitle
       }
     };
-    // console.log(listObj);
-    await dispatch(actions.createList(listObj));
+    dispatch(actions.createList(listObj));
     setShowButton(true);
     setListTitle('');
   };

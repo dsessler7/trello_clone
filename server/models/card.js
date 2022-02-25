@@ -14,7 +14,6 @@ const CardSchema = new Schema({
   ],
   description: {
     type: String,
-    required: [true, 'The Card must have a description.']
   },
   listId: {
     type: Schema.Types.ObjectId,
@@ -24,16 +23,30 @@ const CardSchema = new Schema({
   boardId: {
     type: Schema.Types.ObjectId,
     ref: 'Board',
-    required: [true, 'Each Card must have a board.']
+    required: [true, 'Each card must have a board id.']
   },
   position: {
     type: mongoose.Types.Decimal128,
-    required: [true, 'Position is required.']
   },
-  // commentsCount: {
-  //   type: Number,
-  //   required: [true, 'Comment count required.']
-  // }
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment'
+    }
+  ],
+  completed: {
+    type: Boolean
+  },
+  archived: {
+    type: Boolean
+  }
+});
+
+CardSchema.set('toObject', { virtuals: true });
+CardSchema.set('toJSON', { virtuals: true });
+
+CardSchema.virtual('commentsCount').get(function() {
+  return this.comments.length;
 });
 
 const Card = mongoose.model('Card', CardSchema);

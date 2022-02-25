@@ -2,6 +2,7 @@
 const Board = require("../models/board");
 const List = require("../models/list");
 const Card = require("../models/card");
+const Comment = require("../models/comment");
 const HttpError = require("../models/httpError");
 const { validationResult } = require("express-validator");
 
@@ -37,13 +38,12 @@ const getBoard = (req, res, next) => {
       populate: { path: "cards" }
     })
     .then((board) => {
+      console.log(board);
       res.json(board);
     });
 };
 
 const addList = (req, res, next) => {
-  console.log("boardId: ", req.body.boardId);
-  console.log("listId: ", req.list._id);
   Board.updateOne({ _id: req.body.boardId }, { $push: { lists: req.list._id }})
     .populate({
       path: "lists",

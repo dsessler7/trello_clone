@@ -53,14 +53,35 @@ const apiClient = {
       .then(unwrapData)
       .then(callback)
       .catch(logError);
+  },
+  getCard: function(id, callback) {
+    return axios
+      .get(routes.FETCH_CARD_URL + id)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
+  createCard: function(card, callback) {
+    return axios
+      .post(routes.CREATE_CARD_URL, card)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
+  createComment: function(comment, callback) {
+    return axios
+      .post(routes.CREATE_COMMENT_URL, comment)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
+  },
+  editCard: function(id, card, callback) {
+    return axios
+      .put(routes.EDIT_CARD_URL + id, card)
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
   }
-
-/*   {
-    "boardId": 1,
-    "list": {
-      "title": "My list"
-    }
-  } */
 };
 
 export default apiClient;

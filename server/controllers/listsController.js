@@ -16,9 +16,6 @@ const createList = (req, res, next) => {
   if (errors.isEmpty()) {
     List.create(newList)
       .then((list) => {
-        // List.find({ _id: list._id }, "title _id boardId createdAt updatedAt position").then(
-        //   (list) => res.json({ list })
-        // );
         req.list = list;
         next();
       })
@@ -40,13 +37,35 @@ const sendList = (req, res, next) => {
 
 const editList = (req, res, next) => {
   List.updateOne({ _id: req.params.id }, { $set: { title: req.body.title } })
-    .then((list) => res.json(list)) //should we change this to next() and have sendList be called next
+    .then(() => {
+      List.findOne({ _id: req.params.id }, "title _id createdAt updatedAt")
+        .then((list) => {
+          console.log(list)
+          res.json(list)
+        });
+    })
     .catch((err) => {
       console.log(err);
       next(new HttpError("Editing list failed, please try again", 500));
     });
 };
 
+const addCardToList = (req, res, next) => {
+  List.updateOne({ _id: req.card.listId }, { $push: { cards: req.card._id }})
+    .populate({
+      path: "cards",
+      populate: { path: "comments" }
+    })
+    .then(() => {
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+      next(new HttpError("Adding card failed, please try again", 500));
+    });
+};
+
 exports.createList = createList;
 exports.sendList = sendList;
 exports.editList = editList;
+exports.addCardToList = addCardToList;

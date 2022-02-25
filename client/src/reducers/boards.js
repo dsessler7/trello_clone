@@ -9,7 +9,6 @@ export default function boards(state = [], action) {
       return state.concat(newBoard);
     }
     case "FETCH_BOARD_SUCCESS": {
-      //let lists = action.board.lists;
       return [action.board];
     }
     case "CREATE_LIST_SUCCESS": {
@@ -20,7 +19,7 @@ export default function boards(state = [], action) {
         return board;
       });
     }
-    case "EDIT_LIST_SUCCESS": { // LEFT OFF HERE!!
+    case "EDIT_LIST_SUCCESS": {
       return state.map(board => {
         if (board._id === action.list.boardId) {
           return board.lists.map(list => {
